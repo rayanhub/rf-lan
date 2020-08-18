@@ -1,7 +1,7 @@
 /*
  * si4463.c
  *
- *  Created on: 30 èþí. 2017 ã.
+ *  Created on: 30 ï¿½ï¿½ï¿½. 2017 ï¿½.
  *      Author: MINI
  */
 
@@ -584,7 +584,7 @@ int8_t SI4463_StartRx(const si4463_t * si4463, const uint16_t len, const bool go
 	uint8_t stateAfterTimeout = 0x00;
 	uint8_t stateAfterValid = 0x00;
 	uint8_t stateAfterInvalid = 0x00;
-
+	//uint8_t cmdChain[8] = {0x00,};
 	if (goToRxAfterTimeout)
 	{
 		stateAfterTimeout = 0x08;

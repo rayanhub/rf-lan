@@ -47,7 +47,7 @@ Allocating common symbols
 Common symbol       size              file
 
 defaultTaskHandle   0x4               Src/freertos.o
-incomingBuffer      0x7               Src/main.o
+incomingBuffer      0x3f              Src/main.o
 errno               0x4               /home/rayan/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-reent.o)
 arp_cache_wr        0x1               Drivers/enc28j60/Src/lan.o
 uwTick              0x4               Drivers/STM32F2xx_HAL_Driver/Src/stm32f2xx_hal.o
@@ -56,7 +56,7 @@ pFlash              0x20              Drivers/STM32F2xx_HAL_Driver/Src/stm32f2xx
 htim3               0x40              Src/stm32f2xx_hal_timebase_tim.o
 BuffPos             0x1               Drivers/enc28j60/Src/enc28j60.o
 hspi3               0x58              Src/spi.o
-outgoingBuffer      0x7               Src/freertos.o
+outgoingBuffer      0x3f              Src/freertos.o
 flagModemCmd        0x1               Drivers/enc28j60/Src/enc28j60.o
 hadc1               0x48              Src/adc.o
 net_buf             0x200             Drivers/enc28j60/Src/lan.o
@@ -6157,7 +6157,7 @@ LOAD /home/rayan/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.l
  .igot.plt      0x0000000020000088        0x0 /home/rayan/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7-m/crtbegin.o
                 0x0000000020000088                . = ALIGN (0x4)
 
-.bss            0x0000000020000088     0x47bc load address 0x0000000008007a5c
+.bss            0x0000000020000088     0x482c load address 0x0000000008007a5c
                 0x0000000020000088                _sbss = .
                 0x0000000020000088                __bss_start__ = _sbss
  *(.bss)
@@ -6201,38 +6201,38 @@ LOAD /home/rayan/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.l
  *fill*         0x000000002000429e        0x2 
  COMMON         0x00000000200042a0       0x48 Src/adc.o
                 0x00000000200042a0                hadc1
- COMMON         0x00000000200042e8       0x60 Src/freertos.o
+ COMMON         0x00000000200042e8       0x98 Src/freertos.o
                 0x00000000200042e8                defaultTaskHandle
                 0x00000000200042ec                outgoingBuffer
-                0x00000000200042f4                si4463
-                0x0000000020004334                Task_UdpTxHandle
-                0x0000000020004338                hrng
- COMMON         0x0000000020004348      0x408 Src/main.o
-                0x0000000020004348                incomingBuffer
-                0x0000000020004350                send_buf
-                0x0000000020004550                send_buf2
- COMMON         0x0000000020004750       0xb0 Src/spi.o
-                0x0000000020004750                hspi3
-                0x00000000200047a8                hspi1
- COMMON         0x0000000020004800       0x40 Src/stm32f2xx_hal_timebase_tim.o
-                0x0000000020004800                htim3
- COMMON         0x0000000020004840        0x4 /home/rayan/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-reent.o)
-                0x0000000020004840                errno
-                0x0000000020004844                . = ALIGN (0x4)
-                0x0000000020004844                _ebss = .
-                0x0000000020004844                __bss_end__ = _ebss
+                0x000000002000432c                si4463
+                0x000000002000436c                Task_UdpTxHandle
+                0x0000000020004370                hrng
+ COMMON         0x0000000020004380      0x440 Src/main.o
+                0x0000000020004380                incomingBuffer
+                0x00000000200043c0                send_buf
+                0x00000000200045c0                send_buf2
+ COMMON         0x00000000200047c0       0xb0 Src/spi.o
+                0x00000000200047c0                hspi3
+                0x0000000020004818                hspi1
+ COMMON         0x0000000020004870       0x40 Src/stm32f2xx_hal_timebase_tim.o
+                0x0000000020004870                htim3
+ COMMON         0x00000000200048b0        0x4 /home/rayan/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/libc_nano.a(lib_a-reent.o)
+                0x00000000200048b0                errno
+                0x00000000200048b4                . = ALIGN (0x4)
+                0x00000000200048b4                _ebss = .
+                0x00000000200048b4                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x0000000020004844      0x604 load address 0x0000000008007a5c
-                0x0000000020004848                . = ALIGN (0x8)
- *fill*         0x0000000020004844        0x4 
-                0x0000000020004848                PROVIDE (end = .)
+                0x00000000200048b4      0x604 load address 0x0000000008007a5c
+                0x00000000200048b8                . = ALIGN (0x8)
+ *fill*         0x00000000200048b4        0x4 
+                0x00000000200048b8                PROVIDE (end = .)
                 [!provide]                        PROVIDE (_end = .)
-                0x0000000020004a48                . = (. + _Min_Heap_Size)
- *fill*         0x0000000020004848      0x200 
-                0x0000000020004e48                . = (. + _Min_Stack_Size)
- *fill*         0x0000000020004a48      0x400 
-                0x0000000020004e48                . = ALIGN (0x8)
+                0x0000000020004ab8                . = (. + _Min_Heap_Size)
+ *fill*         0x00000000200048b8      0x200 
+                0x0000000020004eb8                . = (. + _Min_Stack_Size)
+ *fill*         0x0000000020004ab8      0x400 
+                0x0000000020004eb8                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)

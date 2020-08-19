@@ -262,7 +262,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		 /* Get FIFO data */
 		 SI4463_ReadRxFifo(&si4463, incomingBuffer, RADIO_CONFIGURATION_DATA_RADIO_PACKET_LENGTH);
 		 //i = SI4463_GetPacketInfo(&si4463,PKT_FIELD_2_LENGTH,0,64);
-		 send_to_udp(incomingBuffer,sizeof(incomingBuffer),IP_ADDR_DEST);
+		 send_to_udp(incomingBuffer,RADIO_CONFIGURATION_DATA_RADIO_PACKET_LENGTH,IP_ADDR_DEST);
 		 /* Clear RX FIFO */
 		 SI4463_ClearRxFifo(&si4463);
 		 /* Start RX again.

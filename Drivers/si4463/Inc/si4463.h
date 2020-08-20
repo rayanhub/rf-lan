@@ -1,7 +1,7 @@
 /*
  * si4463.h
  *
- *  Created on: 30 èþí. 2017 ã.
+ *  Created on: 30 ï¿½ï¿½ï¿½. 2017 ï¿½.
  *      Author: MINI
  */
 
@@ -186,6 +186,19 @@ typedef struct
 	bool wut;
 } si4463_interrupts_t;
 
+
+typedef enum
+{
+	RX_FIFO_ALMOST_FULL_PEND_CLR = 0U,
+	TX_FIFO_ALMOST_EMPTY_PEND_CLR,
+	NOTHING,
+	CRC_ERROR_PEND_CLR,
+	PACKET_RX_PEND_CLR,
+	PACKET_SENT_PEND_CLR,
+	FILTER_MISS_PEND_CLR,
+	FILTER_MATCH_PEND_CLR
+} si4463_Get_PH_Status_Arg_t;
+
 typedef struct
 {
 	si4463_cmd_err_status_t cmdError;
@@ -258,14 +271,15 @@ int8_t SI4463_SetTxPower(const si4463_t * si4463,si4463_pa_pwr_mW_t PaPwrmW);
 int8_t SI4463_FRRreadValue(const si4463_t * si4463, char reg);
 uint8_t SI4463_IrCal(const si4463_t * si4463, uint8_t searching_step_size, uint8_t searching_rssi_avg, uint8_t rx_chain_setting1, uint8_t rx_chain_setting2 );
 uint8_t SI4463_IrCal_Manual(const si4463_t * si4463, uint8_t ircal_amp, uint8_t ircal_ph );
-uint8_t SI4463_Rx_Hop	(	const si4463_t * si4463,
-							uint8_t inte,
-							uint8_t frac2,
-							uint8_t frac1,
-							uint8_t frac0,
-							uint8_t vco_cnt1,
-							uint8_t vco_cnt0 );
+uint8_t SI4463_Rx_Hop(const si4463_t * si4463,
+					  uint8_t inte,
+					  uint8_t frac2,
+					  uint8_t frac1,
+					  uint8_t frac0,
+					  uint8_t vco_cnt1,
+					  uint8_t vco_cnt0 );
 uint16_t SI4463_GetPacketInfo(const si4463_t * si4463, uint8_t field_number_mask, uint16_t len, uint16_t diff_len );
+void SI4463_Get_PH_Status(const si4463_t * si4463, si4463_Get_PH_Status_Arg_t PH_CLR_PEND);
 
 /* Utils */
 uint32_t SI4463_GetBytePosition(uint8_t neededByte, uint8_t * array, uint32_t arrayLen);

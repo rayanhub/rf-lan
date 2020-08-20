@@ -68,25 +68,13 @@ void udp_packet(eth_frame_t *frame, uint16_t len)
     		}
     		else
     		{
-    			SI4463_Transmit(&si4463, 0x00, (uint8_t*)(&dataUDP),sizeof(dataUDP));
+    			SI4463_Transmit(&si4463, 0x00, (uint8_t*)(&dataUDP),0);
     		}
     	 }
 
     }
 }
 
-uint32_t udp_receive(void *data, uint16_t len)
-{
-	data_t *d = data;
-	uint32_t temp;
-	if(len >= sizeof(data_t))
-	{
-		temp = d->one;
-		return temp;
-	}
-
-	return 0;
-}
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -200,7 +188,7 @@ void StartTask02(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-
+/*
 	  outgoingBuffer[0] = 'h';
 	  outgoingBuffer[1] = 'e';
 	  outgoingBuffer[2] = 'l';
@@ -265,7 +253,7 @@ void StartTask02(void const * argument)
 	  outgoingBuffer[61] = 'O';
 	  outgoingBuffer[62] = 'L';
 	  outgoingBuffer[63] = ' ';
-
+*/
 	  //SI4463_Transmit(&si4463, 0x00, (uint8_t*)outgoingBuffer, 64);
 
 	  Check_CMD();

@@ -810,7 +810,7 @@ int8_t SI4463_Transmit(const si4463_t * si4463, uint8_t channel, const uint8_t *
 	if((remainBytes >= len) && (remainBytes != SI4463_VALUE_ERR))
 	{
 		result += SI4463_WriteTxFifo(si4463, packet, len);
-		result += SI4463_StartTx(si4463, channel, len, rxState);
+		result += SI4463_StartTx(si4463, channel, 0, rxState); // len
 	}
 	else
 	{
@@ -1180,8 +1180,8 @@ uint8_t SI4463_Rx_Hop	(	const si4463_t * si4463,
 uint16_t SI4463_GetPacketInfo(const si4463_t * si4463, uint8_t field_number_mask, uint16_t len, uint16_t diff_len )
 {
 	int16_t result = 0x00;
-	uint8_t answer[3];
-	memset(answer, 0x00, 3);
+	uint8_t answer[4];
+	memset(answer, 0x00, 4);
 	uint8_t cmdChain[6];
 	memset(cmdChain, 0x00, 6);
 
@@ -1193,11 +1193,29 @@ uint16_t SI4463_GetPacketInfo(const si4463_t * si4463, uint8_t field_number_mask
 	cmdChain[5] = (uint8_t)(diff_len);
 
 	SI4463_SendCommand(si4463, cmdChain, 6);
-	SI4463_ReadCommandBuffer(si4463, answer, 3);
+	SI4463_ReadCommandBuffer(si4463, answer, 4);
 
-    result = ((uint16_t)answer[1] << 8) & 0xFF00;
-    result |= (uint16_t)answer[2] & 0x00FF;
+    result = ((uint16_t)answer[2] << 8) & 0xFF00;
+    result |= (uint16_t)answer[3] & 0x00FF;
 
     return result;
 }
 
+void SI4463_Get_PH_Status(const si4463_t * si4463, si4463_Get_PH_Status_Arg_t PH_CLR_PEND)
+{
+	uint8_t PH_PEND = 0x00;
+	uint8_t PH_STATUS = 0x00;
+	uint8_t answer[4];
+	memset(answer, 0x00, 4);
+	uint8_t cmdChain[2];
+	memset(cmdChain, 0x00, 2);
+
+	cmdChain[0] = SI4463_CMD_GET_PH_STATUS;
+	cmdChain[1] = PH_CLR_PEND;
+
+	SI4463_SendCommand(si4463, cmdChain, 2);
+	SI4463_ReadCommandBuffer(si4463, answer, 4);
+
+	PH_PEND = answer[2];
+	PH_STATUS = answer[3];
+}

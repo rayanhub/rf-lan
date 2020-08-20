@@ -68,51 +68,6 @@ enum IncomingBufPosition_e
 	MotionControl,
 	Speed
 };
-
-typedef struct
-{
-	uint8_t  	packetType;
-	uint8_t  	_pad_byte1;
-	uint8_t 	packedId;
-	uint8_t  	flags;
-	uint8_t   	velocity;
-	uint8_t   	steering;
-}  PlatformPacket_t; // __attribute__ ((__packed__))
-
-typedef struct data {
-	uint8_t one;
-	uint8_t two;
-	uint8_t three;
-	uint8_t four;
-	uint8_t five;
-	uint8_t six;
-	uint8_t seven;
-	uint8_t eight;
-	uint8_t nine;
-	uint8_t ten;
-	uint8_t eleven;
-	uint8_t twelve;
-	uint8_t thirteen;
-	uint8_t fourteen;
-	uint8_t fiveteen;
-	uint8_t sixteen;
-	uint8_t seventeen;
-	uint8_t eighteen;
-	uint8_t nineteen;
-	uint8_t twenty;
-	uint8_t twentyone;
-	uint8_t twentytwo;
-	uint8_t twentythree;
-	uint8_t twentyfour;
-	uint8_t twentyfive;
-	uint8_t twentysix;
-	uint8_t twentyseven;
-	uint8_t twentyeight;
-	uint8_t twentynine;
-	uint8_t thirty;
-	uint8_t thirtyone;
-	uint8_t thirtytwo;
-} data_t;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -139,9 +94,8 @@ void SI4463_ClearShutdown(void);
 void SI4463_Select(void);
 void SI4463_Deselect(void);
 uint8_t Check_CMD(void);
+uint16_t SI4463_CheckModule(void);
 uint8_t send_to_udp(uint8_t *packet, uint8_t len, uint32_t dest_ip);
-
-
 uint32_t udp_receive(void *data, uint16_t len);
 /* USER CODE END EFP */
 

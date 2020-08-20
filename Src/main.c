@@ -65,7 +65,7 @@ uint8_t outgoingBuffer[RADIO_CONFIGURATION_DATA_RADIO_PACKET_LENGTH];
 int16_t curr_rssi = 0x00;
 uint8_t check_module_flag = 0;
 
-uint16_t i = 0;
+uint16_t length_packet = 0;
 
 float c_temp = 0.0, v_bat = 0.0;
 
@@ -80,7 +80,7 @@ uint16_t ADC_Val[2] = { 0 };
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
-uint16_t SI4463_CheckModule(void);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -147,7 +147,7 @@ int main(void)
   /* Clear RX FIFO before starting RX packets */
   SI4463_ClearRxFifo(&si4463);
   /* Start RX mode */
-  SI4463_StartRx(&si4463, RADIO_CONFIGURATION_DATA_RADIO_PACKET_LENGTH, false, false, false);
+  SI4463_StartRx(&si4463, 0, false, false, false);
   /* Clear interrupts after enabling interrupt pin.
    * Without it may be situation when interrupt is asserted but pin not cleared.*/
   SI4463_ClearInterrupts(&si4463);
@@ -248,7 +248,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		  SI4463_ClearTxFifo(&si4463);
 
 		  /* Re-arm StartRX */
-		  SI4463_StartRx(&si4463, RADIO_CONFIGURATION_DATA_RADIO_PACKET_LENGTH, false, false,false);
+		  SI4463_StartRx(&si4463, 0, false, false,false);
 
 		  /*Toggle led for indication*/
 		  HAL_GPIO_WritePin(LED_TX_GPIO_Port,LED_TX_Pin,GPIO_PIN_SET);
@@ -261,7 +261,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		 /* Handling this interrupt here */
 		 /* Get FIFO data */
 		 SI4463_ReadRxFifo(&si4463, incomingBuffer, RADIO_CONFIGURATION_DATA_RADIO_PACKET_LENGTH);
-		 //i = SI4463_GetPacketInfo(&si4463,PKT_FIELD_2_LENGTH,0,64);
+
+		 length_packet = SI4463_GetPacketInfo(&si4463,PKT_FIELD_2_LENGTH,63,0);
+		 //SI4463_Get_PH_Status(&si4463, NOTHING);
 		 send_to_udp(incomingBuffer,RADIO_CONFIGURATION_DATA_RADIO_PACKET_LENGTH,IP_ADDR_DEST);
 		 /* Clear RX FIFO */
 		 SI4463_ClearRxFifo(&si4463);
@@ -269,7 +271,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		 * It need because after successful receive a packet the chip change
 		 * state to READY.
 		 * There is re-armed mode for StartRx but it not correctly working */
-		 SI4463_StartRx(&si4463, RADIO_CONFIGURATION_DATA_RADIO_PACKET_LENGTH, false, false, false);
+		 SI4463_StartRx(&si4463, 0, false, false, false);
 
 		 HAL_GPIO_WritePin(LED_RX_GPIO_Port, LED_RX_Pin,GPIO_PIN_SET);
 
